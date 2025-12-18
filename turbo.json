@@ -9,7 +9,17 @@
 		},
 		"build": {
 			"dependsOn": ["^build"],
-			"outputs": [".next/**", "!.next/cache/**", "next-env.d.ts", ".output/**", ".vercel/output/**", ".vercel/**"]
+			"outputs": [
+				"dist/**",
+				"dist-ssr/**",
+				".next/**",
+				"!.next/cache/**",
+				"next-env.d.ts",
+				"build/**",
+				"out/**",
+				".output/**",
+				".vercel/output/**"
+			]
 		},
 		"ui": {
 			"persistent": false,
