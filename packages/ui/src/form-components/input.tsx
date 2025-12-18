@@ -1,0 +1,83 @@
+'use client'
+import type React from 'react'
+import { forwardRef, useId } from 'react'
+import { tv } from '../tv'
+import { useDisabled, useProvidedId, useProvidedLabel } from './fieldset.context'
+
+const dateTypes = ['date', 'datetime-local', 'month', 'time', 'week']
+type DateType = (typeof dateTypes)[number]
+
+const inputControlClasses = tv({
+	base: [
+		'relative block w-full',
+		'border border-black/10 data-hover:border-black/20',
+		'has-data-disabled:opacity-50',
+		'has-data-invalid:before:shadow-red-500/10',
+		'*:data-[slot=icon]:text-zinc-500',
+	],
+})
+
+const inputClasses = tv({
+	base: [
+		'relative block w-full appearance-none rounded-sm px-[calc(calc(var(--spacing)*3.5)-1px)] py-[calc(calc(var(--spacing)*2.5)-1px)] sm:px-[calc(calc(var(--spacing)*3)-1px)] sm:py-[calc(calc(var(--spacing)*5)-1px)]',
+		'text-base/6 sm:text-base',
+		'focus:outline-hidden',
+		'data-invalid:data-hover:border-red-500 data-invalid:border-red-500',
+		'data-disabled:border-black/20',
+	],
+	variants: {
+		isDate: {
+			true: [
+				'[&::-webkit-datetime-edit-fields-wrapper]:p-0',
+				'[&::-webkit-date-and-time-value]:min-h-[1.5em]',
+				'[&::-webkit-datetime-edit]:inline-flex',
+				'[&::-webkit-datetime-edit]:p-0',
+				'[&::-webkit-datetime-edit-year-field]:p-0',
+				'[&::-webkit-datetime-edit-month-field]:p-0',
+				'[&::-webkit-datetime-edit-day-field]:p-0',
+				'[&::-webkit-datetime-edit-hour-field]:p-0',
+				'[&::-webkit-datetime-edit-minute-field]:p-0',
+				'[&::-webkit-datetime-edit-second-field]:p-0',
+				'[&::-webkit-datetime-edit-millisecond-field]:p-0',
+				'[&::-webkit-datetime-edit-meridiem-field]:p-0',
+			],
+		},
+	},
+})
+
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+	type: 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url' | DateType
+}
+
+export const Input = forwardRef<HTMLInputElement, InputProps>(({ className, ...props }, ref) => {
+	const providedDisabled = useDisabled()
+	const internalId = useId()
+	const providedId = useProvidedId()
+	const providedLabel = useProvidedLabel()
+	const disabled = providedDisabled ?? props.disabled
+	const id = providedId ?? props.id ?? internalId
+	const name = providedLabel ?? props.name ?? id
+
+	const inputProps = {
+		...props,
+		name,
+		ref,
+		id,
+		'aria-labelledby': providedLabel,
+		disabled,
+		autoFocus: props.autoFocus || undefined,
+		'data-disabled': disabled || undefined,
+		'data-invalid': props['aria-invalid'],
+	}
+
+	return (
+		<span data-slot='control' className={inputControlClasses({ class: className })}>
+			<input
+				{...inputProps}
+				className={inputClasses({
+					isDate: dateTypes.includes(props.type),
+				})}
+			/>
+		</span>
+	)
+})

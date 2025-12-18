@@ -1,0 +1,32 @@
+{
+  "name": "pipelined",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "clean": "git clean -xdf node_modules",
+    "clean:workspaces": "turbo clean",
+    "lint": "turbo lint",
+    "build:icons": "node ./packages/ui/scripts/build-icons.mjs",
+    "web:dev": "turbo dev --filter=@pipelined/web",
+    "web:build": "turbo build --filter=@pipelined/web",
+    "web:icons": "node ./apps/web/src/scripts/build-icons.mjs",
+    "web:start": "turbo start --filter=@pipelined/web",
+    "ui:build": "turbo build --filter=@pipelined/ui"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.8",
+    "turbo": "^2.6.3",
+    "typescript": "5.5.4"
+  },
+  "packageManager": "pnpm@9.15.1+sha256.9e534e70afef06374f6126b44bda5760947135ce16a30aef1010e965fb7e3e3e",
+  "engines": {
+    "node": ">=18"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.0.2",
+      "@types/react-dom": "19.0.2"
+    }
+  }
+}

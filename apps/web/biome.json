@@ -1,0 +1,22 @@
+{
+	"extends": "//",
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noSvgWithoutTitle": {
+					"level": "off",
+					"options": {}
+				}
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"level": "error",
+					"fix": "safe",
+					"options": {
+						"functions": ["clsx", "cva", "tv"]
+					}
+				}
+			}
+		}
+	}
+}
