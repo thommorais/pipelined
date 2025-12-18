@@ -1,17 +1,19 @@
-import type { WidgetTemplates } from '../templates/widget.templates'
+import { html, type TemplateResult } from 'lit'
+import { unsafeSVG } from 'lit/directives/unsafe-svg.js'
+import { iconChat } from '../icons/widget.icons'
 
 export type HeaderRenderer = {
-	renderHeader: (count: number) => HTMLElement
+	renderHeader: (count: number) => TemplateResult
 }
 
-export const createHeaderRenderer = (templates: WidgetTemplates): HeaderRenderer => ({
-	renderHeader: (count: number): HTMLElement => {
-		const header = templates.headerTemplate.content.cloneNode(true) as DocumentFragment
-		const headerElement = header.querySelector('.header') as HTMLElement
-		const badge = header.querySelector('[data-count]') as HTMLElement
-
-		badge.textContent = count.toString()
-
-		return headerElement
-	},
+export const createHeaderRenderer = (): HeaderRenderer => ({
+	renderHeader: (count: number): TemplateResult => html`
+		<div class="header">
+			<div class="header-title">
+				${unsafeSVG(iconChat)}
+				<h2>Feedback & Pins</h2>
+			</div>
+			<span class="badge">${count}</span>
+		</div>
+	`,
 })

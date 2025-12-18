@@ -1,20 +1,19 @@
-import type { WidgetTemplates } from '../templates/widget.templates'
+import { html, type TemplateResult } from 'lit'
+import { unsafeSVG } from 'lit/directives/unsafe-svg.js'
+import { iconPlus } from '../icons/widget.icons'
 
 export type ButtonRenderer = {
-	renderToggleButton: (isOpen: boolean) => HTMLElement
+	renderToggleButton: (isOpen: boolean) => TemplateResult
 }
 
-export const createButtonRenderer = (templates: WidgetTemplates): ButtonRenderer => ({
-	renderToggleButton: (isOpen: boolean): HTMLElement => {
-		const button = templates.toggleButtonTemplate.content.cloneNode(true) as DocumentFragment
-		const buttonElement = button.querySelector('.toggle-button') as HTMLButtonElement
-
-		if (isOpen) {
-			buttonElement.classList.add('open')
-		}
-
-		buttonElement.setAttribute('aria-label', isOpen ? 'Close feedback' : 'Open feedback')
-
-		return buttonElement
-	},
+export const createButtonRenderer = (): ButtonRenderer => ({
+	renderToggleButton: (isOpen: boolean): TemplateResult => html`
+		<button
+			class="toggle-button ${isOpen ? 'open' : ''}"
+			id="toggle-btn"
+			aria-label="${isOpen ? 'Close feedback' : 'Open feedback'}"
+		>
+			${unsafeSVG(iconPlus)}
+		</button>
+	`,
 })
