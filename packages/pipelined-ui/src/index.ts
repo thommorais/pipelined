@@ -1,4 +1,5 @@
-export { FeedbackWidget, type PinnedComment } from './feedback-widget'
+export type { CommentId, PinnedComment } from './domain/entities/comment.entity'
+export type { WidgetState } from './domain/value-objects/widget-state.vo'
+export { FeedbackWidget } from './presentation/feedback-widget.component'
 
-// Auto-register the custom element when this module is imported
-import './feedback-widget'
+import './presentation/feedback-widget.component'
