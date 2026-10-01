@@ -7,10 +7,13 @@
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo clean",
     "lint": "turbo lint",
-    "web:dev": "turbo dev --filter=@pipelined/web",
-    "web:build": "turbo build --filter=@pipelined/web",
-    "web:icons": "node ./apps/web/src/scripts/build-icons.mjs",
-    "web:start": "turbo start --filter=@pipelined/web"
+    "web:dev": "turbo dev --filter=@pipelined/pipelined-ui",
+    "web:build": "turbo build --filter=@pipelined/pipelined-ui",
+    "web:icons": "node ./packages/pipelined-ui/src/scripts/build-icons.mjs",
+    "web:start": "turbo start --filter=@pipelined/pipelined-ui",
+    "sample:dev": "turbo dev --filter=@pipelined/sample",
+    "sample:build": "turbo build --filter=@pipelined/sample",
+    "sample:start": "turbo start --filter=@pipelined/sample"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.8",
